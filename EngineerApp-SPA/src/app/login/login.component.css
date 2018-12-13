@@ -48,3 +48,16 @@
   .row {
     margin-top: 57px;
   }
+
+  .img {
+    background-image: url('../images/logo.png');
+    width: 200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .dropdown-toggle, .dropdown-item {
+    cursor: pointer;
+  }
