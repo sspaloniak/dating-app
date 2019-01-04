@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using EngineerApp.API.Data;
 using EngineerApp.API.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,7 +38,18 @@ namespace EngineerApp.API
             services.AddMvc();
             services.AddCors();
 
+            services.AddAutoMapper();
+            //var config = new AutoMapper.MapperConfiguration(cfg =>
+                //{
+                //    cfg.AddProfile(new AutoMapperProfiles());
+                //});
+            //var mapper = config.CreateMapper();
+            //services.AddSingleton(mapper);
+
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISystemDictionaryRepository, SystemDictionaryRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

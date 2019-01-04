@@ -1,0 +1,41 @@
+<app-home></app-home>
+<div class="container mt-4">
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="title">
+				<h1><u>{{pageTitle}}</u></h1>
+			</div>
+		</div>
+		<div class="addUser">
+			<button class="btn btn-success" [routerLink]="['/register']"><i class="fa fa-user"></i> New User</button>
+		</div>
+		<div style="margin-top:15px;" class="content-table">
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Lp.</th>
+						<th class="col-md-3 col-sm-3 col-xs-3">Nazwisko</th>
+						<th class="col-md-3 col-sm-3 col-xs-3">Imię</th>
+						<th class="col-md-3 col-sm-3 col-xs-3">Uprawnienia</th>
+						<th class="col-md-3 col-sm-3 col-xs-3">Dzial</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let user of users let i = index" [attr.data-index]="i">
+						<td>{{i+1}}</td>
+						<td class="col-md-3 col-sm-3 col-xs-3">{{user.surname}}</td>
+						<td class="col-md-3 col-sm-3 col-xs-3">{{user.name}}</td>
+						<td class="col-md-3 col-sm-3 col-xs-3">{{user.typePermission == 0 ? "Menedżer" : "Użytkownik"}}</td>
+						<td class="col-md-3 col-sm-2 col-xs-3">{{user.department}}</td>
+						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-success" [routerLink]="['/members/', user.id]"><i
+								 class="fa fa-user"></i> Update</button></td>
+						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteUser(user.id)"><i class="fa fa-user"></i> Delete</button></td>
+					</tr>
+					<tr *ngIf="users?.length == 0">
+						<td style="text-align: center" colspan="10">{{tempInfo}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

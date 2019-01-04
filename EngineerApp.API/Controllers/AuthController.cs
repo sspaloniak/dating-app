@@ -27,14 +27,22 @@ namespace EngineerApp.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
+            userForRegisterDto.Login = userForRegisterDto.Login.ToLower();
 
-            if (await _repo.UserExists(userForRegisterDto.UserName))
-                return BadRequest("Username already exists.");
+            if (await _repo.UserExists(userForRegisterDto.Login))
+                return BadRequest("Login already exists.");
 
             var userToCreate = new User
             {
-                UserName = userForRegisterDto.UserName
+                Login = userForRegisterDto.Login,
+                Name = userForRegisterDto.Name,
+                Surname = userForRegisterDto.Surname,
+                TypePermission = userForRegisterDto.TypePermission,
+                IdSuperior = userForRegisterDto.IdSuperior,
+                IdDepartment = userForRegisterDto.IdDepartment,
+                Email = userForRegisterDto.Email,
+                ModifiedDate = DateTime.Now,
+                ModifiedBy = 1
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
@@ -43,9 +51,9 @@ namespace EngineerApp.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserForRegisterDto userForLoginDto)
+        public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
+            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
             if (userFromRepo == null)
                 return Unauthorized();
@@ -53,7 +61,7 @@ namespace EngineerApp.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.UserName),
+                new Claim(ClaimTypes.Name, userFromRepo.Login),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8

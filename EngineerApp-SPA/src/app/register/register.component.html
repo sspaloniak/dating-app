@@ -1,3 +1,55 @@
-<p>
-  register works!
-</p>
+<app-home></app-home>
+<div class="container mt-4">
+  <form #registerform="ngForm" (ngSubmit)="register()">
+    <h2 class="text-center text-primary">Register new user</h2>
+    <hr>
+    <div class="form-group">
+      <label>Login</label>
+      <input type="text" name="Login" class="form-control" #Login = "ngModel" [(ngModel)]="model.Login" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" name="Password" class="form-control" #Password = "ngModel" [(ngModel)]="model.Password" required>
+    </div>
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" name="Name" class="form-control" #Name = "ngModel" [(ngModel)]="model.Name" required>
+    </div>
+    <div class="form-group">
+      <label>Surname</label>
+      <input type="text" name="Surname" class="form-control" #Surname = "ngModel" [(ngModel)]="model.Surname" required>
+    </div>
+    <div class="form-group">
+      <label>Type of Permission</label>
+      <select name="TypeOfPermission" class="custom-select mr-sm-2" [(ngModel)]="model.TypePermission">
+        <option selected disabled hidden>Choose...</option>
+        <option value="0">Menedżer</option>
+        <option value="1">Użytkownik</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Superior</label>
+      <select name="Superior" class="custom-select mr-sm-2" [(ngModel)]="model.IdSuperior">
+        <option selected disabled hidden>Choose...</option>
+        <option *ngFor="let superior of superiors" [value]="superior.id">{{superior.superiorName}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Department</label>
+      <select name="Department" class="custom-select mr-sm-2" [(ngModel)]="model.IdDepartment" required>
+        <option selected disabled hidden>Choose...</option>
+        <option *ngFor="let department of departments" [value]="department.id">{{department.departmentName}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" name="Email" class="form-control" [(ngModel)]="model.Email" required>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-success" type="submit">Register</button>
+    </div>
+    <div class="buttons2">
+      <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

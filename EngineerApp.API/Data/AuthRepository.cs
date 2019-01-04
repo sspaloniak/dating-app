@@ -14,9 +14,9 @@ namespace EngineerApp.API.Data
             _context = context;
         }
 
-        public async Task<User> Login(string userName, string password)
+        public async Task<User> Login(string login, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Login == login);
             if (user == null)
                 return null;
 
@@ -65,9 +65,9 @@ namespace EngineerApp.API.Data
 
         }
 
-        public async Task<bool> UserExists(string userName)
+        public async Task<bool> UserExists(string login)
         {
-            if (await _context.Users.AnyAsync(x => x.UserName == userName))
+            if (await _context.Users.AnyAsync(x => x.Login == login))
                 return true;
 
             return false;

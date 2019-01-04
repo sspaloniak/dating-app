@@ -2,11 +2,11 @@
   height: 50px;
 }
 
-.text-center {
+.login-container{
     height: 100%;
   }
   
-  .text-center {
+  .login-container {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;

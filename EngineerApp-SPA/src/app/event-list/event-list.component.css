@@ -1,0 +1,14 @@
+.content-table {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: auto;
+    float: left;
+    text-align: center;
+}
+
+.container {
+    margin: auto;
+    width: 50%;
+}

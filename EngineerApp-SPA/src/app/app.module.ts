@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap';
+import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -12,6 +14,20 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorInterceptorPrivider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
+import { MemberListComponent } from './members/member-list/member-list.component';
+import { appRoutes } from './routes';
+import { EventListComponent } from './event-list/event-list.component';
+import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { UserService } from './_services/user.service';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { DictionaryService } from './_services/dictionary.service';
+import { CardReadersComponent } from './card-readers/card-readers.component';
+
+
+export function tokenGetter() {
+    return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -19,19 +35,34 @@ import { AlertifyService } from './_services/alertify.service';
       ValueComponent,
       LoginComponent,
       RegisterComponent,
-      LoginComponent
+      MemberListComponent,
+      MemberCardComponent,
+      EventListComponent,
+      HomeComponent,
+      CardReadersComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
       FormsModule,
-      BsDropdownModule.forRoot()
+      BsDropdownModule.forRoot(),
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+          config: {
+              tokenGetter: tokenGetter,
+              whitelistedDomains: ['localhost:5000'],
+              blacklistedRoutes: []
+          }
+      })
    ],
    providers: [
       AuthService,
       ErrorInterceptorPrivider,
-      AlertifyService
+      AlertifyService,
+      AuthGuard,
+      UserService,
+      DictionaryService
    ],
    bootstrap: [
       AppComponent

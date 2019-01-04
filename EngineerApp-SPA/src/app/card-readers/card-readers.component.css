@@ -1,0 +1,22 @@
+.content-table {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    width: 50%;
+}
+
+.container {
+    margin: auto;
+    width: 50%;
+}
+
+.form-control, .custom-select {
+    margin-top: 6px;
+}
+
+.element {
+    width: 100%;
+}
