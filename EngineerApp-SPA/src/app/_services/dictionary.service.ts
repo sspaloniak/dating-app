@@ -20,8 +20,16 @@ constructor(
     return this.http.get<Department[]>(this.baseUrl + 'dictionary/departments');
   }
 
+  deleteDepartment(id): Observable<boolean> {
+    return this.http.delete<boolean>(this.baseUrl + 'dictionary/departments/delete/' + id);
+  }
+
   getDepartment(id): Observable<Department> {
     return this.http.get<Department>(this.baseUrl + 'dictionary/departments/' + id);
+  }
+
+  addDepartment(model: Department) {
+    return this.http.post(this.baseUrl + 'dictionary/departments/add', model);
   }
 
   getSuperiors(): Observable<Superior[]> {
@@ -36,7 +44,23 @@ constructor(
     return this.http.get<Localization[]>(this.baseUrl + 'dictionary/localizations');
   }
 
+  deleteLocalization(id): Observable<boolean> {
+    return this.http.delete<boolean>(this.baseUrl + 'dictionary/localizations/delete/' + id);
+  }
+
+  addLocalization(model: Localization) {
+    return this.http.post(this.baseUrl + 'dictionary/localizations/add', model);
+  }
+
   getCardReaders(): Observable<CardReader[]> {
     return this.http.get<CardReader[]>(this.baseUrl + 'dictionary/cardreaders');
+  }
+
+  deleteCardReader(id): Observable<boolean> {
+    return this.http.delete<boolean>(this.baseUrl + 'dictionary/cardreaders/delete/' + id);
+  }
+
+  addCardReader(model: CardReader) {
+    return this.http.post(this.baseUrl + 'dictionary/cardreaders/add', model);
   }
 }

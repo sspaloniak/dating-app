@@ -6,13 +6,13 @@ namespace EngineerApp.API.Data
 {
     public interface ISystemDictionaryRepository
     {
-        void Add<T>(T entity) where T: class;
+        void Add<T> (T entity) where T: class;
+        void AddDepart(Department entity);
         void Delete<T> (T entity) where T: class;
 
         Task<Department> GetDepartment(int id);
         Task<IEnumerable<Department>> GetDepartments();
 
-        void UpdateCardReader(CardReader department);
         Task<CardReader> GetCardReader(int id);
         Task<IEnumerable<CardReader>> GetCardReaders();
 
@@ -21,5 +21,10 @@ namespace EngineerApp.API.Data
 
         Task<User> GetSuperior(int id);
         Task<IEnumerable<User>> GetSuperiors();
+
+        Task<bool> DepartmentExists(string element);
+        Task<bool> LocalizationExists(string element);
+        Task<bool> CardReaderExists(string element, int elementInt);
+        Task<bool> SaveAll();
     }
 }

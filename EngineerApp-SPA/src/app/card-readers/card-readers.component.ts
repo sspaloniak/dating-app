@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Localization } from '../_models/localization';
 import { DictionaryService } from '../_services/dictionary.service';
 import { AlertifyService } from '../_services/alertify.service';
@@ -15,6 +15,7 @@ export class CardReadersComponent implements OnInit {
   cardReaders: CardReader[];
   localizations: Localization[];
   departments: Department[];
+  model: any = {};
   pageTitle = 'List of Card Readers';
   pageTitle2 = 'List of Localizations';
   pageTitle3 = 'List of Departments';
@@ -36,6 +37,15 @@ export class CardReadersComponent implements OnInit {
     });
   }
 
+  deleteCardReader(id: number) {
+    this.dictionaryService.deleteCardReader(id).subscribe(() => {
+      this.alertify.warning('Card reader was deleted.');
+      this.loadCardReaders();
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
   loadLocalizations() {
     this.dictionaryService.getLocalizations().subscribe((localizations: Localization[]) => {
       this.localizations = localizations;
@@ -44,9 +54,54 @@ export class CardReadersComponent implements OnInit {
     });
   }
 
+  deleteLocalization(id: number) {
+    this.dictionaryService.deleteLocalization(id).subscribe(() => {
+      this.alertify.warning('Localization was deleted.');
+      this.loadLocalizations();
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
   loadDepartments() {
     this.dictionaryService.getDepartments().subscribe((departments: Department[]) => {
       this.departments = departments;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  deleteDepartment(id: number) {
+    this.dictionaryService.deleteDepartment(id).subscribe(() => {
+      this.alertify.warning('Department was deleted.');
+      this.loadDepartments();
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  addLocalization(form) {
+    this.dictionaryService.addLocalization(this.model).subscribe(() => {
+      this.alertify.message('New localization was added.');
+      this.loadLocalizations();
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  addCardReader() {
+    this.dictionaryService.addCardReader(this.model).subscribe(() => {
+      this.alertify.message('New card reader was added.');
+      this.loadCardReaders();
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  addDepartment() {
+    this.dictionaryService.addDepartment(this.model).subscribe(() => {
+      this.alertify.message('New department was added.');
+      this.loadDepartments();
     }, error => {
       this.alertify.error(error);
     });

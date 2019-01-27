@@ -8,17 +8,19 @@
 					<h1><u>{{pageTitle}}</u></h1>
 				</div>
 			</div>
-			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="New Card Reader..." aria-label="Recipient's username"
-				 aria-describedby="basic-addon2">
-				<select class="custom-select" id="inputGroupSelect01">
-					<option selected disabled hidden>Choose...</option>
-					<option *ngFor="let localization of localizations" [value]="localization.id">{{localization.area}}</option>
-				</select>
-				<div class="input-group-append">
-					<button class="btn btn-success" type="button">Add Card Reader</button>
+			<form #cardReaderForm="ngForm" (ngSubmit)="addCardReader(cardReaderForm.value)">
+				<div class="input-group mb-3">
+					<input type="text" name="ReaderName" class="form-control" placeholder="New Card Reader..." aria-label="Recipient's username"
+					 aria-describedby="basic-addon2" #ReaderName = "ngModel" [(ngModel)]="model.readerName">
+					<select name="Localization" class="custom-select" id="inputGroupSelect01" [(ngModel)]="model.idlocalization">
+						<option selected disabled hidden>Choose...</option>
+						<option *ngFor="let localization of localizations" [value]="localization.id">{{localization.area}}</option>
+					</select>
+					<div class="input-group-append">
+						<button class="btn btn-success" type="submit">Add Card Reader</button>
+					</div>
 				</div>
-			</div>
+			</form>
 			<div style="margin-top:15px;" class="content-table">
 				<table class="table table-bordered table-striped">
 					<thead class="thead-dark">
@@ -33,6 +35,7 @@
 							<td>{{i+1}}</td>
 							<td class="col-md-3 col-sm-3 col-xs-3">{{cardReader.readerName}}</td>
 							<td class="col-md-3 col-sm-3 col-xs-3">{{cardReader.localization}}</td>
+							<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteCardReader(cardReader.id)"><i class="fa fa-user"></i> Delete</button></td>
 						</tr>
 
 						<tr *ngIf="cardReaders?.length == 0">
@@ -49,13 +52,15 @@
 					<h1><u>{{pageTitle2}}</u></h1>
 				</div>
 			</div>
-			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="New Localization..." aria-label="Recipient's username"
-				 aria-describedby="basic-addon2">
-				<div class="input-group-append">
-					<button class="btn btn-success" type="button">Add Localization</button>
+			<form #localizationForm="ngForm" (ngSubmit)="addLocalization(localizationForm.value)">
+				<div class="input-group mb-3">
+					<input type="text" name="Area" class="form-control" placeholder="New Localization..." aria-label="Recipient's username"
+					 aria-describedby="basic-addon2" #Area = "ngModel" [(ngModel)]="model.Area" required>
+					<div class="input-group-append">
+						<button class="btn btn-success" type="submit">Add Localization</button>
+					</div>
 				</div>
-			</div>
+			</form>
 			<div style="margin-top:15px;" class="content-table">
 				<table class="table table-bordered table-striped">
 					<thead class="thead-dark">
@@ -68,6 +73,7 @@
 						<tr *ngFor="let localization of localizations let i = index" [attr.data-index]="i">
 							<td>{{i+1}}</td>
 							<td class="col-md-3 col-sm-3 col-xs-3">{{localization.area}}</td>
+							<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteLocalization(localization.id)"><i class="fa fa-user"></i> Delete</button></td>
 						</tr>
 
 						<tr *ngIf="localizations?.length == 0">
@@ -84,13 +90,15 @@
 					<h1><u>{{pageTitle3}}</u></h1>
 				</div>
 			</div>
-			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="New Department..." aria-label="Recipient's username"
-				 aria-describedby="basic-addon2">
-				<div class="input-group-append">
-					<button class="btn btn-success" type="button">Add Department</button>
+			<form #departmentForm="ngForm" (ngSubmit)="addDepartment(departmentForm.value)">
+				<div class="input-group mb-3">
+					<input type="text" name="DepartmentName" class="form-control" placeholder="New Department..." aria-label="Recipient's username"
+					 aria-describedby="basic-addon2" #DepartmentName = "ngModel" [(ngModel)]="model.DepartmentName" required>
+					<div class="input-group-append">
+						<button class="btn btn-success" type="submit">Add Department</button>
+					</div>
 				</div>
-			</div>
+			</form>
 			<div style="margin-top:15px;" class="content-table">
 				<table class="table table-bordered table-striped">
 					<thead class="thead-dark">
@@ -103,6 +111,7 @@
 						<tr *ngFor="let department of departments let i = index" [attr.data-index]="i">
 							<td>{{i+1}}</td>
 							<td class="col-md-3 col-sm-3 col-xs-3">{{department.departmentName}}</td>
+							<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteDepartment(department.id)"><i class="fa fa-user"></i> Delete</button></td>
 						</tr>
 
 						<tr *ngIf="departments?.length == 0">

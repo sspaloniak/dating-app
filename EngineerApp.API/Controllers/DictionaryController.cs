@@ -7,6 +7,7 @@ using EngineerApp.API.Dtos;
 using EngineerApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace EngineerApp.API.Controllers
 {
@@ -100,6 +101,90 @@ namespace EngineerApp.API.Controllers
             }
 
             return Ok(readers);
+        }
+
+
+
+
+
+
+        [HttpPost("departments/add")]
+        public async Task<IActionResult> AddDepartment(DepartmentDto department)
+        {
+            if (await _repo.DepartmentExists(department.DepartmentName))
+                return BadRequest("Department already exists.");
+            var departmentToCreate = new Department
+            {
+                DepartmentName = department.DepartmentName,
+                ModifiedBy = 1,
+                ModifiedDate = DateTime.Now
+            };
+            _repo.Add(departmentToCreate);
+
+            return StatusCode(201);
+        }
+                
+        [HttpDelete("departments/delete/{id}")]
+        public async Task<IActionResult> DeleteDepartment(int id)
+        {
+            var department = await _repo.GetDepartment(id);
+            _repo.Delete(department);
+            bool result = await _repo.SaveAll();
+
+            return Ok(result);
+        }
+
+        [HttpPost("localizations/add")]
+        public async Task<IActionResult> AddLocalization(LocalizationDto localization)
+        {
+            if (await _repo.LocalizationExists(localization.Area))
+                return BadRequest("Localization already exists.");
+            var localizationToCreate = new Localization
+            {
+                Area = localization.Area,
+                ModifiedBy = 1,
+                ModifiedDate = DateTime.Now
+            }; 
+            _repo.Add(localizationToCreate);
+
+            return StatusCode(201);
+        }
+
+        [HttpDelete("localizations/delete/{id}")]
+        public async Task<IActionResult> DeleteLocalization(int id)
+        {
+            var localization = await _repo.GetLocalization(id);
+            _repo.Delete(localization);
+            bool result = await _repo.SaveAll();
+
+            return Ok(result);
+        }
+
+        [HttpPost("cardreaders/add")]
+        public async Task<IActionResult> AddCardReader(CardReaderDto cardReader)
+        {
+            if (await _repo.CardReaderExists(cardReader.ReaderName, cardReader.IdLocalization))
+                return BadRequest("Card Reader already exists.");
+            var cardReaderToCreate = new CardReader
+            {
+                IdLocalization = cardReader.IdLocalization,
+                ReaderName = cardReader.ReaderName,
+                ModifiedBy = 1,
+                ModifiedDate = DateTime.Now
+            }; 
+            _repo.Add(cardReaderToCreate);
+
+            return StatusCode(201);
+        }
+
+        [HttpDelete("cardreaders/delete/{id}")]
+        public async Task<IActionResult> DeleteCardReader(int id)
+        {
+            var cardReader = await _repo.GetCardReader(id);
+            _repo.Delete(cardReader);
+            bool result = await _repo.SaveAll();
+
+            return Ok(result);
         }
     }
 }
