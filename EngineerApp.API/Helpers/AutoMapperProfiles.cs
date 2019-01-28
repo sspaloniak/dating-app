@@ -10,6 +10,7 @@ namespace EngineerApp.API.Helpers
         {
             CreateMap<User, UserForListDto>();
             CreateMap<User, UserForDetailedDTO>();
+            CreateMap<Card, CardForListDto>();
         }
     }
 }

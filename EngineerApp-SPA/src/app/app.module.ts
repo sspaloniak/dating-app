@@ -23,6 +23,8 @@ import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { DictionaryService } from './_services/dictionary.service';
 import { CardReadersComponent } from './card-readers/card-readers.component';
+import { CardComponent } from './card/card.component';
+import { CardService } from './_services/card.service';
 
 
 export function tokenGetter() {
@@ -30,42 +32,44 @@ export function tokenGetter() {
 }
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      ValueComponent,
-      LoginComponent,
-      RegisterComponent,
-      MemberListComponent,
-      MemberCardComponent,
-      EventListComponent,
-      HomeComponent,
-      CardReadersComponent
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule,
-      HttpClientModule,
-      FormsModule,
-      BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes),
-      JwtModule.forRoot({
-          config: {
-              tokenGetter: tokenGetter,
-              whitelistedDomains: ['localhost:5000'],
-              blacklistedRoutes: []
-          }
-      })
-   ],
-   providers: [
-      AuthService,
-      ErrorInterceptorPrivider,
-      AlertifyService,
-      AuthGuard,
-      UserService,
-      DictionaryService
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+    declarations: [
+        AppComponent,
+        ValueComponent,
+        LoginComponent,
+        RegisterComponent,
+        MemberListComponent,
+        MemberCardComponent,
+        EventListComponent,
+        HomeComponent,
+        CardReadersComponent,
+        CardComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        BsDropdownModule.forRoot(),
+        RouterModule.forRoot(appRoutes),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                whitelistedDomains: ['localhost:5000'],
+                blacklistedRoutes: []
+            }
+        })
+    ],
+    providers: [
+        AuthService,
+        ErrorInterceptorPrivider,
+        AlertifyService,
+        AuthGuard,
+        UserService,
+        DictionaryService,
+        CardService
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }

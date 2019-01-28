@@ -50,6 +50,7 @@ namespace EngineerApp.API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISystemDictionaryRepository, SystemDictionaryRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<ICardRepository, CardRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

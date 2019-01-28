@@ -5,6 +5,8 @@ import { Superior } from '../_models/superior';
 import { DictionaryService } from '../_services/dictionary.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { RegisterUser } from '../_models/registerUser';
+import { Router } from '@angular/router';
+import { MemberListComponent } from '../members/member-list/member-list.component';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +20,8 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
 
-  constructor(private authService: AuthService, private dictionaryService: DictionaryService, private alertify: AlertifyService) { }
+  constructor(private authService: AuthService, private dictionaryService: DictionaryService, private alertify: AlertifyService,
+    private router: Router) { }
 
   ngOnInit() {
     this.loadDepartments();
@@ -27,15 +30,15 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.authService.register(this.model).subscribe(() => {
-      console.log('registration successful');
+      this.alertify.message('New user has been added.');
+      this.router.navigateByUrl('/members');
     }, error => {
-      console.log(error);
+      this.alertify.error(error);
     });
   }
 
   cancel() {
-    this.cancelRegister.emit(false);
-    console.log('cancelled');
+    this.router.navigateByUrl('/members');
   }
 
   loadDepartments() {

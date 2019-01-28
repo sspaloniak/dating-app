@@ -30,10 +30,10 @@ export class MemberListComponent implements OnInit {
 
   deleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(() => {
-      console.log('deleted successful');
+      this.alertify.warning('User was deleted.');
       this.loadUsers();
     }, error => {
-      console.log(error);
+      this.alertify.error(error);
     });
   }
 }
