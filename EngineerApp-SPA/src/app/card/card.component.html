@@ -1,4 +1,3 @@
-
 <app-home></app-home>
 <div class="container mt-4">
 	<div class="row">
@@ -8,7 +7,67 @@
 			</div>
 		</div>
 		<div class="addCard">
-			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-user"></i>New Card</button>
+
+			<ng-template #content let-modal>
+				<div class="modal-header">
+					<h4 class="modal-title" id="modal-basic-title">Adding a new card</h4>
+					<button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form #cardAddForm="ngForm" (ngSubmit)="addCard()">
+						<fieldset>
+
+							<div class="form-group">
+								<input id="cardnumber1" name="cardnumber1" type="text" placeholder="Card number 1" class="form-control input-md"
+								 #cardnumber1="ngModel" [(ngModel)]="model.cardNumber1" required="">
+							</div>
+							<div class="form-group">
+								<input id="cardnumber2" name="cardnumber2" type="text" placeholder="Card number 2" class="form-control input-md"
+								 #cardnumber2="ngModel" [(ngModel)]="model.cardNumber2" required="">
+							</div>
+							<div class="form-group">
+								<input id="cardnumber3" name="cardnumber3" type="text" placeholder="Card number 3" class="form-control input-md"
+								 #cardnumber3="ngModel" [(ngModel)]="model.cardNumber3" required="">
+							</div>
+							<div class="form-group">
+								<input id="cardnumber4" name="cardnumber4" type="text" placeholder="Card number 4" class="form-control input-md"
+								 #cardnumber4="ngModel" [(ngModel)]="model.cardNumber4" required="">
+							</div>
+
+							<!-- Select Basic -->
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="selectuser">Select User</label>
+								<select id="selectuser" name="selectuser" class="custom-select mr-sm-2" [(ngModel)]="model.idUser">
+										<option selected disabled hidden>Choose...</option>
+										<option *ngFor="let user of users" [value]="user.id">{{user.surname}}</option>
+									  </select>
+							</div>
+
+							<!-- Multiple Radios (inline) -->
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="blocked">Blocked</label>
+								<label class="radio-inline" for="blocked-0">
+									<input checked= "checked" #blocked ="ngModel" [(ngModel)]="model.blocked" ng-value="'true'" type="radio" name="blocked" id="blocked-0" value="true">
+									Yes
+								</label>
+								<label class="radio-inline" for="blocked-1">
+									<input #blocked ="ngModel" [(ngModel)]="model.blocked" ng-value="'false'" type="radio" name="blocked" id="blocked-1" value="false">
+									No
+								</label>
+							</div>
+
+						</fieldset>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-outline-dark"> Add </button>
+						</div>
+					</form>
+				</div>
+			</ng-template>
+
+			<button type="button" class="btn btn-success" (click)="open(content)"><i class="fa fa-user"></i> New Card</button>
+
 		</div>
 
 		<div style="margin-top:15px;" class="content-table">
@@ -23,13 +82,15 @@
 				</thead>
 				<tbody>
 					<tr *ngFor="let card of cards let i = index" [attr.data-index]="i">
-            <td>{{i+1}}</td>
-            <td class="col-md-3 col-sm-3 col-xs-3">{{card.cardNumber1 + " " + card.cardNumber2 + " " + card.cardNumber3 + " " + card.cardNumber4}}</td>
-						<td class="col-md-3 col-sm-3 col-xs-3">{{card.userName}}</td>
+						<td>{{i+1}}</td>
+						<td class="col-md-3 col-sm-3 col-xs-3">{{card.cardNumber1 + " " + card.cardNumber2 + " " + card.cardNumber3 + " "
+							+ card.cardNumber4}}</td>
+						<td class="col-md-3 col-sm-3 col-xs-3">{{card.username}}</td>
 						<td class="col-md-3 col-sm-3 col-xs-3">{{card.blocked == false ? "Nie" : "Tak"}}</td>
 						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-success" [routerLink]="['/members/', card.id]"><i
 								 class="fa fa-user"></i> Update</button></td>
-						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteCard(card.id)"><i class="fa fa-user"></i> Delete</button></td>
+						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteCard(card.id)"><i class="fa fa-user"></i>
+								Delete</button></td>
 					</tr>
 					<tr *ngIf="cards?.length == 0">
 						<td style="text-align: center" colspan="10">{{tempInfo}}</td>

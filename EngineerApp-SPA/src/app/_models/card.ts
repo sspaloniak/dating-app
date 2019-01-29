@@ -1,7 +1,7 @@
 export interface Card {
     id: number;
     idUser: number;
-    userName: string;
+    username: string;
     cardNumber1: string;
     cardNumber2: string;
     cardNumber3: string;

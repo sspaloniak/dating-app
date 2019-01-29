@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -49,6 +50,7 @@ export function tokenGetter() {
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
+        NgbModule.forRoot(),
         BsDropdownModule.forRoot(),
         RouterModule.forRoot(appRoutes),
         JwtModule.forRoot({

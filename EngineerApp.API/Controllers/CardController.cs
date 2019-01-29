@@ -44,11 +44,11 @@ namespace EngineerApp.API.Controllers
                     }
                     else
                     {
-                        card.Username = "Brak przydzielonego przełożonego.";
+                        card.Username = "Brak";
                     }
                 }
                 else
-                    card.Username = "Brak przydzielonego przełożonego.";
+                    card.Username = "Brak";
             }
 
             return Ok(cardsToReturn);
@@ -70,11 +70,11 @@ namespace EngineerApp.API.Controllers
                     }
                     else
                     {
-                        cardToReturn.Username = "Brak przydzielonego przełożonego.";
+                        cardToReturn.Username = "Brak";
                     }
                 }
                 else
-                    cardToReturn.Username = "Brak przydzielonego przełożonego.";
+                    cardToReturn.Username = "Brak";
 
             return Ok(cardToReturn);
         }
@@ -83,7 +83,7 @@ namespace EngineerApp.API.Controllers
         public async Task<IActionResult> AddCard(CardForListDto card)
         {
             if (await _repo.CardExists(card))
-                return BadRequest("Localization already exists.");
+                return BadRequest("Card already exists.");
             var cardToCreate = new Card
             {
                 CardNumber1 = card.CardNumber1,

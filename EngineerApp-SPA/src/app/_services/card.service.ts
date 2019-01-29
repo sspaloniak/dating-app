@@ -18,8 +18,8 @@ constructor(
     return this.http.get<Card[]>(this.baseUrl + 'card');
   }
 
-  getUser(id): Observable<User> {
-    return this.http.get<User>(this.baseUrl + 'users/' + id);
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl + 'users');
   }
 
   getCard(id): Observable<Card> {
