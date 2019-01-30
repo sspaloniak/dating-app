@@ -7,6 +7,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
+        <li class="menuitem" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/home']">Home</a>
+        </li>
         <div *ngIf="authService.setUserProfile(user)">
           <li class="menuitem" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/members']">Users</a>
@@ -60,29 +63,30 @@
     <form #cardAddForm="ngForm" (ngSubmit)="sendEmail()">
       <fieldset>
 
-            <div class="form-group">
-              <label class="control-label" for="selectuser">Choose the recipient</label>
-              <select id="selectuser" name="selectuser" class="custom-select mr-sm-2">
-                <option selected disabled hidden>Choose...</option>
-                <option *ngFor="let user of users" [value]="user.id">{{user.surname}}</option>
-              </select>
-            </div>
+        <div class="form-group">
+          <label class="control-label" for="selectuser">Choose the recipient</label>
+          <select id="selectuser" name="selectuser" class="custom-select mr-sm-2">
+            <option selected disabled hidden>Choose...</option>
+            <option *ngFor="let user of users" [value]="user.id">{{user.surname}}</option>
+          </select>
+        </div>
 
-            <div class="form-group">
-              <label class="control-label" for="textarea">Message</label>
-                <textarea class="form-control" id="textarea" name="textarea" maxlength="500"></textarea>
-            </div>
+        <div class="form-group">
+          <label class="control-label" for="textarea">Message</label>
+          <textarea class="form-control" id="textarea" name="textarea" maxlength="500"></textarea>
+        </div>
 
-            <div class="form-group">
-                <input id="filebutton" name="filebutton" class="input-file" type="file">
-            </div>
+        <div class="form-group">
+          <label for="exampleInputFile">File input</label>
+          <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+        </div>
 
-            <div class="form-group">
-              <label class="col-md-6 control-label" for="checkboxes">Send a copy to me</label>
-                <label class="checkbox-inline" for="checkboxes-0">
-                  <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
-                </label>
-            </div>
+        <div class="form-group">
+          <label class="col-md-6 control-label" for="checkboxes">Send a copy to me</label>
+          <label class="checkbox-inline" for="checkboxes-0">
+            <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
+          </label>
+        </div>
 
       </fieldset>
       <div class="modal-footer">

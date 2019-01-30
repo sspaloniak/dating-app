@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
+import { getDate } from 'ngx-bootstrap/chronos/utils/date-getters';
 
 @Component({
   selector: 'app-event-list',
@@ -17,12 +18,15 @@ export class EventListComponent implements OnInit {
   user: User;
   pageTitle = 'List of events';
   tempInfo = 'Loading...';
+  startDate: Date;
+  finishDate: Date;
 
   constructor(private authService: AuthService, private eventService: EventService, private alertify: AlertifyService,
     private router: Router, private userService: UserService) { }
 
   ngOnInit() {
     this.loadEvents();
+    this.filter();
   }
 
   loadEvents() {
@@ -31,5 +35,13 @@ export class EventListComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  filter() {
+
+  }
+
+  export() {
+
   }
 }
