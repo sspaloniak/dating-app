@@ -40,9 +40,9 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="selectuser">Select User</label>
 								<select id="selectuser" name="selectuser" class="custom-select mr-sm-2" [(ngModel)]="model.idUser">
-										<option selected disabled hidden>Choose...</option>
-										<option *ngFor="let user of users" [value]="user.id">{{user.surname}}</option>
-									  </select>
+									<option selected disabled hidden>Choose...</option>
+									<option *ngFor="let user of users" [value]="user.id">{{user.surname}}</option>
+								</select>
 							</div>
 
 							<!-- Multiple Radios (inline) -->

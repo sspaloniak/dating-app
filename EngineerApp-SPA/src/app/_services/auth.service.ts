@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { RegisterUser } from '../_models/registerUser';
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,13 @@ export class AuthService {
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  setUserProfile(user: User) {
+    if (user.typePermission === 1) {
+      return false;
+   } else {
+      return true;
+   }
   }
 }

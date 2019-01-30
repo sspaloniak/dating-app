@@ -23,11 +23,21 @@ namespace EngineerApp.API.Controllers
             _userRepo = userRepo;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetIncidents()
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetIncidents(int id)
         {
-            var events = await _eventRepo.GetIncidents();
             var users = await _userRepo.GetUsers();
+            var user = users.FirstOrDefault(x => x.Id == id);
+            dynamic events;
+            if (user.TypePermission == 0)
+            {
+                events = await _eventRepo.GetIncidents();
+            }
+            else
+            {
+                var tempeventsFromDB = await _eventRepo.GetIncidents();
+                events = tempeventsFromDB.Where(x => x.IdUser == id);
+            }
 
             var eventsToReturn = new List<Event>();
             foreach(var item in events)

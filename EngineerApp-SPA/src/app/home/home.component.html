@@ -7,18 +7,24 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <li class="menuitem" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/members']">Users</a>
-        </li>
+        <div *ngIf="authService.setUserProfile(user)">
+          <li class="menuitem" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/members']">Users</a>
+          </li>
+        </div>
         <li class="menuitem" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/events']">Incidents <br>History</a>
         </li>
-        <li class="menuitem" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/cards']">Cards</a>
-        </li>
-        <li class="menuitem" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/cardreaders']">Card Readers, Localizations <br>and Departments</a>
-        </li>
+        <div *ngIf="authService.setUserProfile(user)">
+          <li class="menuitem" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/cards']">Cards</a>
+          </li>
+        </div>
+        <div *ngIf="authService.setUserProfile(user)">
+          <li class="menuitem" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/cardreaders']">Card Readers, Localizations <br>and Departments</a>
+          </li>
+        </div>
         <li class="menuitem" routerLinkActive="active">
           <button type="button" class="nav-link btn btn-outline-primary my-2 my-sm-0" (click)="open(content)"><i class="fa fa-user"></i>
             Send Message</button>
@@ -39,47 +45,49 @@
         </div>
       </div>
 
-      <ng-template #content let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Send a message</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form #cardAddForm="ngForm" (ngSubmit)="sendEmail()">
-            <fieldset>
-
-                  <div class="form-group">
-                    <label class="control-label" for="selectuser">Choose the recipient</label>
-                      <select id="selectuser" name="selectuser" class="form-control">
-                      </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="control-label" for="textarea">Message</label>
-                      <textarea class="form-control" id="textarea" name="textarea" maxlength="500"></textarea>
-                  </div>
-
-                  <div class="form-group">
-                      <input id="filebutton" name="filebutton" class="input-file" type="file">
-                  </div>
-
-                  <div class="form-group">
-                    <label class="col-md-6 control-label" for="checkboxes">Send a copy to me</label>
-                      <label class="checkbox-inline" for="checkboxes-0">
-                        <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
-                      </label>
-                  </div>
-
-            </fieldset>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-outline-dark"> Send </button>
-            </div>
-          </form>
-        </div>
-      </ng-template>
-
     </div>
   </div>
 </nav>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Send a message</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #cardAddForm="ngForm" (ngSubmit)="sendEmail()">
+      <fieldset>
+
+            <div class="form-group">
+              <label class="control-label" for="selectuser">Choose the recipient</label>
+              <select id="selectuser" name="selectuser" class="custom-select mr-sm-2">
+                <option selected disabled hidden>Choose...</option>
+                <option *ngFor="let user of users" [value]="user.id">{{user.surname}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="textarea">Message</label>
+                <textarea class="form-control" id="textarea" name="textarea" maxlength="500"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input id="filebutton" name="filebutton" class="input-file" type="file">
+            </div>
+
+            <div class="form-group">
+              <label class="col-md-6 control-label" for="checkboxes">Send a copy to me</label>
+                <label class="checkbox-inline" for="checkboxes-0">
+                  <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
+                </label>
+            </div>
+
+      </fieldset>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark"> Send </button>
+      </div>
+    </form>
+  </div>
+</ng-template>

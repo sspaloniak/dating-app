@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../_models/user';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -15,11 +16,14 @@ import { User } from '../_models/user';
 export class HomeComponent implements OnInit {
   model: any = {};
   users: User[];
+  user: User;
   closeResult: string;
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal, private userService: UserService) { }
 
   ngOnInit() {
+    this.loadUser();
+    this.loadUsers();
   }
 
   logout() {
@@ -38,6 +42,22 @@ export class HomeComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  loadUsers() {
+    this.userService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  loadUser() {
+    this.userService.getUser(this.authService.decodedToken.nameid).subscribe((user: User) => {
+      this.user = user;
+    }, error => {
+      this.alertify.error(error);
     });
   }
 
