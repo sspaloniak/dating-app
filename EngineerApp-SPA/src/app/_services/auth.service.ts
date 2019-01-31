@@ -5,6 +5,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { RegisterUser } from '../_models/registerUser';
 import { User } from '../_models/user';
+import { UserService } from './user.service';
+import { AlertifyService } from './alertify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userService: UserService, private alertify: AlertifyService) { }
 
   login(model: any) {
     return this.http.post(this.baseUrl + 'login', model)
@@ -24,10 +26,17 @@ export class AuthService {
           if (user) {
             localStorage.setItem('token', user.token);
             this.decodedToken = this.jwtHelper.decodeToken(user.token);
-            console.log(this.decodedToken);
           }
         })
       );
+  }
+
+  loadUser(id: number) {
+    this.userService.getUser(id).subscribe((user: User) => {
+      localStorage.setItem('permission', 'sq@3$s/' + user.typePermission.toString());
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   register(model: RegisterUser) {
@@ -39,11 +48,11 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  setUserProfile(user: User) {
-    if (user.typePermission === 1) {
+  setUserProfile() {
+    if (localStorage.getItem('permission') === 'sq@3$s/1') {
       return false;
-   } else {
+    } else {
       return true;
-   }
+    }
   }
 }

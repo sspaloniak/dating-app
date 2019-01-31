@@ -26,6 +26,7 @@ import { DictionaryService } from './_services/dictionary.service';
 import { CardReadersComponent } from './card-readers/card-readers.component';
 import { CardComponent } from './card/card.component';
 import { CardService } from './_services/card.service';
+import { ExcelService } from './_services/excel.service';
 
 
 export function tokenGetter() {
@@ -68,7 +69,8 @@ export function tokenGetter() {
         AuthGuard,
         UserService,
         DictionaryService,
-        CardService
+        CardService,
+        ExcelService
     ],
     bootstrap: [
         AppComponent

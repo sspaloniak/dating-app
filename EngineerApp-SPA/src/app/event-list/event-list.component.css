@@ -16,3 +16,7 @@
 .button {
     float: right;
 }
+
+.filter {
+    width: 100%;
+}

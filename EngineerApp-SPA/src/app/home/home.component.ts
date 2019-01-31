@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -18,16 +19,18 @@ export class HomeComponent implements OnInit {
   users: User[];
   user: User;
   closeResult: string;
+
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router,
     private modalService: NgbModal, private userService: UserService) { }
 
   ngOnInit() {
-    this.loadUser();
+    this.authService.loadUser(this.authService.decodedToken.nameid);
     this.loadUsers();
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.clear();
+    // (Number)(localStorage.getItem('userId')
     this.alertify.message('Logged out');
     this.router.navigate(['/login']);
   }
@@ -48,14 +51,6 @@ export class HomeComponent implements OnInit {
   loadUsers() {
     this.userService.getUsers().subscribe((users: User[]) => {
       this.users = users;
-    }, error => {
-      this.alertify.error(error);
-    });
-  }
-
-  loadUser() {
-    this.userService.getUser(this.authService.decodedToken.nameid).subscribe((user: User) => {
-      this.user = user;
     }, error => {
       this.alertify.error(error);
     });

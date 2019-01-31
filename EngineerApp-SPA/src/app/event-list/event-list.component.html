@@ -9,13 +9,13 @@
 		<div style="margin-top:15px;" class="content-table">
 			<form #cardReaderForm="ngForm" (ngSubmit)="filter()">
 				<div class="input-group mb-3">
-					<label for="example-date-input" class="col-2 col-form-label">Date from</label>
+					<label for="example-date-input" class="col-form-label">Date from </label>
 					<input class="form-control" type="date" value="2019-02-04" id="example-date-input">
 					<br>
 					<br>
-					<label for="example-date-input" class="col-2 col-form-label">Date to</label>
+					<label for="example-date-input" class="col-form-label">Date to </label>
 					<input class="form-control" type="date" value="2018-02-04" id="example-date-input">
-					<button class="btn btn-success" type="submit">Filter</button>
+					<button class="filter btn btn-success" type="submit"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
 				</div>
 			</form>
 		</div>
@@ -28,6 +28,9 @@
 						<th class="col-md-3 col-sm-3 col-xs-3">Typ zdarzenia</th>
 						<th class="col-md-3 col-sm-3 col-xs-3">Czytnik</th>
 						<th class="col-md-3 col-sm-3 col-xs-3">Użytkownik</th>
+						<th>
+							<button class="btn btn-info btn-sm" (click)="exportAsXLSX()"><i class="fa fa-file-excel-o"></i> Export</button>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,9 +46,6 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
-		<div class="exportButton">
-			<button class="btn btn-success" (click)="export()"><i class="fa fa-user"></i> Export</button>
 		</div>
 	</div>
 </div>

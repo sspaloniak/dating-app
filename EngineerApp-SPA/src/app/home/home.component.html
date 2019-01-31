@@ -10,7 +10,7 @@
         <li class="menuitem" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/home']">Home</a>
         </li>
-        <div *ngIf="authService.setUserProfile(user)">
+        <div *ngIf="authService.setUserProfile()">
           <li class="menuitem" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/members']">Users</a>
           </li>
@@ -18,25 +18,30 @@
         <li class="menuitem" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/events']">Incidents <br>History</a>
         </li>
-        <div *ngIf="authService.setUserProfile(user)">
+        <div *ngIf="authService.setUserProfile()">
           <li class="menuitem" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/cards']">Cards</a>
           </li>
         </div>
-        <div *ngIf="authService.setUserProfile(user)">
+        <div *ngIf="authService.setUserProfile()">
           <li class="menuitem" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/cardreaders']">Card Readers, Localizations <br>and Departments</a>
           </li>
         </div>
+        <div *ngIf="authService.setUserProfile()">
+            <li class="menuitem" routerLinkActive="active">
+              <a class="nav-link" [routerLink]="['/cards']">Reports</a>
+            </li>
+          </div>
         <li class="menuitem" routerLinkActive="active">
-          <button type="button" class="nav-link btn btn-outline-primary my-2 my-sm-0" (click)="open(content)"><i class="fa fa-user"></i>
-            Send Message</button>
+          <button type="button" class="nav-link btn btn-outline-primary my-2 my-sm-0" (click)="open(content)">
+            <i class="fa fa-envelope-open-o" aria-hidden="true"></i> Send Message</button>
         </li>
       </ul>
 
       <div class="dropdown" dropdown>
         <a class="dropdown-toggle text-light" dropdownToggle>
-          Welcome {{authService.decodedToken?.unique_name | titlecase}}
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i> Welcome {{authService.decodedToken?.unique_name | titlecase}}
         </a>
 
         <div class="dropdown-menu mt-3" *dropdownMenu>
@@ -90,7 +95,7 @@
 
       </fieldset>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-dark"> Send </button>
+        <button type="submit" class="btn btn-outline-dark"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send </button>
       </div>
     </form>
   </div>

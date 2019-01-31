@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Event } from 'src/app/_models/event';
 import { EventService } from '../_services/event.service';
 import { AlertifyService } from '../_services/alertify.service';
-import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { getDate } from 'ngx-bootstrap/chronos/utils/date-getters';
+import { ExcelService } from '../_services/excel.service';
 
 @Component({
   selector: 'app-event-list',
@@ -22,7 +22,7 @@ export class EventListComponent implements OnInit {
   finishDate: Date;
 
   constructor(private authService: AuthService, private eventService: EventService, private alertify: AlertifyService,
-    private router: Router, private userService: UserService) { }
+    private userService: UserService, private excelService: ExcelService) { }
 
   ngOnInit() {
     this.loadEvents();
@@ -41,7 +41,7 @@ export class EventListComponent implements OnInit {
 
   }
 
-  export() {
-
+  exportAsXLSX() {
+    this.excelService.exportAsExcelFile(this.events, 'Export');
   }
 }

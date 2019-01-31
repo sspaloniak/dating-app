@@ -7,7 +7,7 @@
 			</div>
 		</div>
 		<div class="addUser">
-			<button class="btn btn-success" [routerLink]="['/register']"><i class="fa fa-user"></i> New User</button>
+			<button class="btn btn-success" [routerLink]="['/register']"><i class="fa fa-user-plus" aria-hidden="true"></i> New User</button>
 		</div>
 		<div style="margin-top:15px;" class="content-table">
 			<table class="table table-bordered table-striped">
@@ -27,9 +27,11 @@
 						<td class="col-md-3 col-sm-3 col-xs-3">{{user.name}}</td>
 						<td class="col-md-3 col-sm-3 col-xs-3">{{user.typePermission == 0 ? "Menedżer" : "Użytkownik"}}</td>
 						<td class="col-md-3 col-sm-2 col-xs-3">{{user.department}}</td>
-						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-success" [routerLink]="['/members/', user.id]"><i
-								 class="fa fa-user"></i> Update</button></td>
-						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteUser(user.id)"><i class="fa fa-user"></i> Delete</button></td>
+						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-success" [routerLink]="['/members/', user.id]">
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update</button></td>
+						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteUser(user.id)">
+							<i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+						</td>
 					</tr>
 					<tr *ngIf="users?.length == 0">
 						<td style="text-align: center" colspan="10">{{tempInfo}}</td>
