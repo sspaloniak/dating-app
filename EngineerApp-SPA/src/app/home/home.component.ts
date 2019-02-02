@@ -8,6 +8,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../_models/user';
 import { UserService } from '../_services/user.service';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -19,18 +20,26 @@ export class HomeComponent implements OnInit {
   users: User[];
   user: User;
   closeResult: string;
+  emailForm: FormGroup;
 
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router,
-    private modalService: NgbModal, private userService: UserService) { }
+    private modalService: NgbModal, private userService: UserService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.authService.loadUser(this.authService.decodedToken.nameid);
     this.loadUsers();
+    this.createEmailForm();
+  }
+
+  createEmailForm() {
+    this.emailForm = this.fb.group({
+      selectuser: ['', Validators.required],
+      subject: ['', Validators.required]
+    });
   }
 
   logout() {
     localStorage.clear();
-    // (Number)(localStorage.getItem('userId')
     this.alertify.message('Logged out');
     this.router.navigate(['/login']);
   }

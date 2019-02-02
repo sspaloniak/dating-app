@@ -16,51 +16,52 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form #cardAddForm="ngForm" (ngSubmit)="addCard()">
+					<form [formGroup]="cardForm" (ngSubmit)="addCard()">
 						<fieldset>
 
 							<div class="form-group">
-								<input id="cardnumber1" name="cardnumber1" type="text" placeholder="Card number 1" class="form-control input-md"
-								 #cardnumber1="ngModel" [(ngModel)]="model.cardNumber1" required="">
+								<input id="cardnumber1" formControlName="cardnumber1" type="text" placeholder="Card number 1" class="form-control input-md" [ngClass]="{'is-invalid': cardForm.get('cardnumber1').errors && cardForm.get('cardnumber1').touched}">
+								<div class="invalid-feedback">Card number is required</div>
 							</div>
 							<div class="form-group">
-								<input id="cardnumber2" name="cardnumber2" type="text" placeholder="Card number 2" class="form-control input-md"
-								 #cardnumber2="ngModel" [(ngModel)]="model.cardNumber2" required="">
+								<input id="cardnumber2" formControlName="cardnumber2" type="text" placeholder="Card number 2" class="form-control input-md" [ngClass]="{'is-invalid': cardForm.get('cardnumber2').errors && cardForm.get('cardnumber2').touched}">
+								<div class="invalid-feedback">Card number is required</div>
 							</div>
 							<div class="form-group">
-								<input id="cardnumber3" name="cardnumber3" type="text" placeholder="Card number 3" class="form-control input-md"
-								 #cardnumber3="ngModel" [(ngModel)]="model.cardNumber3" required="">
+								<input id="cardnumber3" formControlName="cardnumber3" type="text" placeholder="Card number 3" class="form-control input-md" [ngClass]="{'is-invalid': cardForm.get('cardnumber3').errors && cardForm.get('cardnumber3').touched}">
+								<div class="invalid-feedback">Card number is required</div>
 							</div>
 							<div class="form-group">
-								<input id="cardnumber4" name="cardnumber4" type="text" placeholder="Card number 4" class="form-control input-md"
-								 #cardnumber4="ngModel" [(ngModel)]="model.cardNumber4" required="">
+								<input id="cardnumber4" formControlName="cardnumber4" type="text" placeholder="Card number 4" class="form-control input-md" [ngClass]="{'is-invalid': cardForm.get('cardnumber4').errors && cardForm.get('cardnumber4').touched}">
+								<div class="invalid-feedback">Card number is required</div>
 							</div>
 
 							<!-- Select Basic -->
 							<div class="form-group">
-								<label class="col-md-4 control-label" for="selectuser">Select User</label>
-								<select id="selectuser" name="selectuser" class="custom-select mr-sm-2" [(ngModel)]="model.idUser">
+								<label class="col-md-4 control-label">Select User</label>
+								<select formControlName="idUser" class="custom-select mr-sm-2" [ngClass]="{'is-invalid': cardForm.get('idUser').errors && cardForm.get('idUser').touched}">
 									<option selected disabled hidden>Choose...</option>
 									<option *ngFor="let user of users" [value]="user.id">{{user.surname}}</option>
 								</select>
+								<div class="invalid-feedback">User is required</div>
 							</div>
 
 							<!-- Multiple Radios (inline) -->
 							<div class="form-group">
 								<label class="col-md-4 control-label" for="blocked">Blocked</label>
 								<label class="radio-inline" for="blocked-0">
-									<input checked= "checked" #blocked ="ngModel" [(ngModel)]="model.blocked" ng-value="'true'" type="radio" name="blocked" id="blocked-0" value="true">
+									<input type="radio" formControlName="blocked" value="true">
 									Yes
 								</label>
 								<label class="radio-inline" for="blocked-1">
-									<input #blocked ="ngModel" [(ngModel)]="model.blocked" ng-value="'false'" type="radio" name="blocked" id="blocked-1" value="false">
+									<input type="radio" formControlName="blocked" value="false">
 									No
 								</label>
 							</div>
 
 						</fieldset>
 						<div class="modal-footer">
-							<button type="submit" class="btn btn-outline-dark"> Add </button>
+							<button type="submit" class="btn btn-outline-dark" [disabled]="!cardForm.valid"> Add </button>
 						</div>
 					</form>
 				</div>

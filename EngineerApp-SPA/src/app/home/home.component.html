@@ -45,7 +45,7 @@
         </a>
 
         <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" [routerLink]="['/user']">
             <i class="fa fa-user"></i> Edit Profile</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" (click)="logout()">
@@ -65,15 +65,24 @@
     </button>
   </div>
   <div class="modal-body">
-    <form #cardAddForm="ngForm" (ngSubmit)="sendEmail()">
+
+    <form [formGroup]="emailForm" (ngSubmit)="sendEmail()">
       <fieldset>
 
         <div class="form-group">
           <label class="control-label" for="selectuser">Choose the recipient</label>
-          <select id="selectuser" name="selectuser" class="custom-select mr-sm-2">
+          <select id="selectuser" formControlName="selectuser" [ngClass]="{'is-invalid': emailForm.get('selectuser').errors && emailForm.get('selectuser').touched}"
+            class="custom-select mr-sm-2">
             <option selected disabled hidden>Choose...</option>
             <option *ngFor="let user of users" [value]="user.id">{{user.surname}}</option>
           </select>
+          <div class="invalid-feedback">Recipient is required</div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="selectuser">Subject</label>
+          <input type="text" class="form-control" formControlName="subject" [ngClass]="{'is-invalid': emailForm.get('subject').errors && emailForm.get('subject').touched}">
+          <div class="invalid-feedback">Subject is required</div>
         </div>
 
         <div class="form-group">
@@ -95,7 +104,7 @@
 
       </fieldset>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-dark"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send </button>
+        <button type="submit" class="btn btn-outline-dark" [disabled]="!emailForm.valid"><i class="fa fa-envelope-o" aria-hidden="true"></i> Send </button>
       </div>
     </form>
   </div>

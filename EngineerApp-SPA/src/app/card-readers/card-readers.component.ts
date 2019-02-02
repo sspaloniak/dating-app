@@ -5,6 +5,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
 import { CardReader } from '../_models/cardReader';
 import { Department } from '../_models/department';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-card-readers',
@@ -20,13 +21,37 @@ export class CardReadersComponent implements OnInit {
   pageTitle2 = 'List of Localizations';
   pageTitle3 = 'List of Departments';
   tempInfo = 'Loading...';
+  cardReaderForm: FormGroup;
+  localizationForm: FormGroup;
+  departmentForm: FormGroup;
 
-  constructor(private dictionaryService: DictionaryService, private alertify: AlertifyService, private router: Router) { }
+  constructor(private dictionaryService: DictionaryService, private alertify: AlertifyService,
+    private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.loadCardReaders();
     this.loadLocalizations();
     this.loadDepartments();
+    this.createCardReaderForm();
+    this.createDepartmentForm();
+    this.createLocalizationForm();
+  }
+
+  createCardReaderForm() {
+    this.cardReaderForm = this.fb.group({
+      readerName: ['', Validators.required],
+      idlocalization: ['', Validators.required]
+    });
+  }
+  createDepartmentForm() {
+    this.departmentForm = this.fb.group({
+      departmentName: ['', Validators.required]
+    });
+  }
+  createLocalizationForm() {
+    this.localizationForm = this.fb.group({
+      area: ['', Validators.required]
+    });
   }
 
   loadCardReaders() {
@@ -80,31 +105,40 @@ export class CardReadersComponent implements OnInit {
     });
   }
 
-  addLocalization(form) {
-    this.dictionaryService.addLocalization(this.model).subscribe(() => {
-      this.alertify.message('New localization was added.');
-      this.loadLocalizations();
-    }, error => {
-      this.alertify.error(error);
-    });
+  addLocalization() {
+    if (this.localizationForm.valid) {
+      this.dictionaryService.addLocalization(this.localizationForm.value).subscribe(() => {
+        this.alertify.message('New localization was added.');
+        this.loadLocalizations();
+      }, error => {
+        this.alertify.error(error);
+      });
+      this.localizationForm.reset();
+    }
   }
 
   addCardReader() {
-    this.dictionaryService.addCardReader(this.model).subscribe(() => {
-      this.alertify.message('New card reader was added.');
-      this.loadCardReaders();
-    }, error => {
-      this.alertify.error(error);
-    });
+    if (this.cardReaderForm.valid) {
+      this.dictionaryService.addCardReader(this.cardReaderForm.value).subscribe(() => {
+        this.alertify.message('New card reader was added.');
+        this.loadCardReaders();
+      }, error => {
+        this.alertify.error(error);
+      });
+      this.cardReaderForm.reset();
+    }
   }
 
   addDepartment() {
-    this.dictionaryService.addDepartment(this.model).subscribe(() => {
-      this.alertify.message('New department was added.');
-      this.loadDepartments();
-    }, error => {
-      this.alertify.error(error);
-    });
+    if (this.departmentForm.valid) {
+      this.dictionaryService.addDepartment(this.departmentForm.value).subscribe(() => {
+        this.alertify.message('New department was added.');
+        this.loadDepartments();
+      }, error => {
+        this.alertify.error(error);
+      });
+    }
+    this.departmentForm.reset();
   }
 
 }

@@ -8,6 +8,7 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { RegisterComponent } from './register/register.component';
 import { CardReadersComponent } from './card-readers/card-readers.component';
 import { CardComponent } from './card/card.component';
+import { UserComponent } from './user/user.component';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -22,7 +23,8 @@ export const appRoutes: Routes = [
             { path: 'members/:id', component: MemberCardComponent},
             { path: 'events', component: EventListComponent },
             { path: 'cardreaders', component: CardReadersComponent},
-            { path: 'cards', component: CardComponent}
+            { path: 'cards', component: CardComponent},
+            { path: 'user', component: UserComponent}
         ]
     },
     { path: '**', redirectTo: 'login', pathMatch: 'full'}

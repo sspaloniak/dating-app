@@ -16,11 +16,13 @@ namespace EngineerApp.API.Controllers
     {
         private readonly IEventRepository _eventRepo;
         private readonly IUserRepository _userRepo;
+        private readonly ISystemDictionaryRepository _dictionaryRepo;
 
-        public EventsController(IEventRepository eventRepo, IUserRepository userRepo)
+        public EventsController(IEventRepository eventRepo, IUserRepository userRepo, ISystemDictionaryRepository dictionaryRepo)
         {
             _eventRepo = eventRepo;
             _userRepo = userRepo;
+            _dictionaryRepo = dictionaryRepo;
         }
 
         [HttpGet("{id}")]
@@ -28,6 +30,7 @@ namespace EngineerApp.API.Controllers
         {
             var users = await _userRepo.GetUsers();
             var user = users.FirstOrDefault(x => x.Id == id);
+            var cardReaders = await _dictionaryRepo.GetCardReaders();
             dynamic events;
             if (user.TypePermission == 0)
             {
@@ -46,12 +49,19 @@ namespace EngineerApp.API.Controllers
 
                 eventItem.IdUser = item.IdUser;
                 eventItem.User = users.FirstOrDefault(x => x.Id == item.IdUser).Surname;
+                if(eventItem.User == "" || eventItem.User == null)
+                {
+                    eventItem.CardReader = "Brak użytkownika";
+                }
                 eventItem.IdIncidentType = item.IncidentType;
                 eventItem.IncidentType = ((TypeOfIncident)item.IncidentType).ToString();
                 eventItem.IdCardReader = item.IdCardReader;
                 eventItem.Date = item.Date.ToShortDateString() + " " + item.Hour.ToShortTimeString();
-                eventItem.CardReader = item.IdCardReader.ToString();
-                
+                eventItem.CardReader = cardReaders.FirstOrDefault(x => x.Id == item.IdCardReader).ReaderName;
+                if(eventItem.CardReader == "" || eventItem.CardReader == null)
+                {
+                    eventItem.CardReader = "Brak czytnika";
+                }
                 eventsToReturn.Add(eventItem);
             }
 

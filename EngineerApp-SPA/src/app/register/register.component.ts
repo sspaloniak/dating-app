@@ -7,6 +7,8 @@ import { AlertifyService } from '../_services/alertify.service';
 import { RegisterUser } from '../_models/registerUser';
 import { Router } from '@angular/router';
 import { MemberListComponent } from '../members/member-list/member-list.component';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-register',
@@ -18,23 +20,40 @@ export class RegisterComponent implements OnInit {
   superiors: Superior[];
   @Input() valuesForRegister: any;
   @Output() cancelRegister = new EventEmitter();
-  model: any = {};
+  user: User;
+  registerForm: FormGroup;
 
   constructor(private authService: AuthService, private dictionaryService: DictionaryService, private alertify: AlertifyService,
-    private router: Router) { }
+    private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.loadDepartments();
     this.loadSuperiors();
+    this.createRegisterForm();
+  }
+
+  createRegisterForm() {
+    this.registerForm = this.fb.group({
+      Login: ['', Validators.required],
+      Password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(15)]],
+      Name: ['', Validators.required],
+      Surname: ['', Validators.required],
+      TypeOfPermission: ['', Validators.required],
+      IdSuperior: [],
+      IdDepartment: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]]
+    });
   }
 
   register() {
-    this.authService.register(this.model).subscribe(() => {
-      this.alertify.message('New user has been added.');
-      this.router.navigateByUrl('/members');
-    }, error => {
-      this.alertify.error(error);
-    });
+    if (this.registerForm.valid) {
+      this.authService.register(this.registerForm.value).subscribe(() => {
+        this.alertify.message('New user has been added.');
+        this.router.navigateByUrl('/members');
+      }, error => {
+        this.alertify.error(error);
+      });
+    }
   }
 
   cancel() {

@@ -1,57 +1,104 @@
 <app-home></app-home>
 <div class="container mt-4">
 
-  <form #registerform="ngForm" (ngSubmit)="register()">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
     <h2 class="text-center text-primary">Register new user</h2>
     <hr>
+
     <div class="form-group">
-      <label>Login</label>
-      <input type="text" name="Login" class="form-control" #Login = "ngModel" [(ngModel)]="model.Login" required>
+      <input type="text" [ngClass]="{'is-invalid': registerForm.get('Login').errors 
+          && registerForm.get('Login').touched}"
+        class="form-control" formControlName="Login" placeholder="Login">
+      <div class="invalid-feedback">Login is required</div>
     </div>
+
     <div class="form-group">
-      <label>Password</label>
-      <input type="password" name="Password" class="form-control" #Password = "ngModel" [(ngModel)]="model.Password" required>
+      <input type="password" [ngClass]="{'is-invalid': registerForm.get('Password').errors 
+          && registerForm.get('Password').touched}"
+        class="form-control" formControlName="Password" placeholder="Password">
+      <div class="invalid-feedback" *ngIf="registerForm.get('Password').hasError('required')
+          && registerForm.get('Password').touched">
+        Password is required
+      </div>
+      <div class="invalid-feedback" *ngIf="registerForm.get('Password').hasError('minlength')
+          && registerForm.get('Password').touched">
+        Password must be at least 4 characters
+      </div>
+      <div class="invalid-feedback" *ngIf="registerForm.get('Password').hasError('maxlength')
+          && registerForm.get('Password').touched">
+        Password cannot exceed 8 characters
+      </div>
     </div>
+
     <div class="form-group">
-      <label>Name</label>
-      <input type="text" name="Name" class="form-control" #Name = "ngModel" [(ngModel)]="model.Name" required>
+      <input type="text" [ngClass]="{'is-invalid': registerForm.get('Name').errors 
+        && registerForm.get('Name').touched}"
+        class="form-control" formControlName="Name" placeholder="Name">
+      <div class="invalid-feedback">
+        Name is required
+      </div>
     </div>
+
     <div class="form-group">
-      <label>Surname</label>
-      <input type="text" name="Surname" class="form-control" #Surname = "ngModel" [(ngModel)]="model.Surname" required>
+      <input type="text" [ngClass]="{'is-invalid': registerForm.get('Surname').errors 
+            && registerForm.get('Surname').touched}"
+        class="form-control" formControlName="Surname" placeholder="Surname">
+      <div class="invalid-feedback">
+        Surname is required
+      </div>
     </div>
+
     <div class="form-group">
       <label>Type of Permission</label>
-      <select name="TypeOfPermission" class="custom-select mr-sm-2" [(ngModel)]="model.TypePermission">
+      <select formControlName="TypeOfPermission" class="custom-select mr-sm-2" [ngClass]="{'is-invalid': registerForm.get('TypeOfPermission').errors 
+                        && registerForm.get('TypeOfPermission').touched}">
         <option selected disabled hidden>Choose...</option>
         <option value="0">Menedżer</option>
         <option value="1">Użytkownik</option>
       </select>
+      <div class="invalid-feedback">
+        Type od Permission id required
+      </div>
     </div>
+
     <div class="form-group">
       <label>Superior</label>
-      <select name="Superior" class="custom-select mr-sm-2" [(ngModel)]="model.IdSuperior">
+      <select formControlName="IdSuperior" class="custom-select mr-sm-2">
         <option selected disabled hidden>Choose...</option>
         <option *ngFor="let superior of superiors" [value]="superior.id">{{superior.superiorName}}</option>
       </select>
     </div>
+
     <div class="form-group">
       <label>Department</label>
-      <select name="Department" class="custom-select mr-sm-2" [(ngModel)]="model.IdDepartment" required>
+      <select formControlName="IdDepartment" class="custom-select mr-sm-2" [ngClass]="{'is-invalid': registerForm.get('IdDepartment').errors && registerForm.get('IdDepartment').touched}">
         <option selected disabled hidden>Choose...</option>
         <option *ngFor="let department of departments" [value]="department.id">{{department.departmentName}}</option>
       </select>
+      <div class="invalid-feedback">Department is required</div>
     </div>
+
     <div class="form-group">
-      <label>Email</label>
-      <input type="text" name="Email" class="form-control" [(ngModel)]="model.Email" required>
+      <input type="text" [ngClass]="{'is-invalid': registerForm.get('Email').errors 
+                && registerForm.get('Email').touched}"
+        class="form-control" formControlName="Email" placeholder="Email">
+      <div class="invalid-feedback" *ngIf="registerForm.get('Email').hasError('required')
+            && registerForm.get('Email').touched">
+        Email is required
+      </div>
+      <div class="invalid-feedback" *ngIf="registerForm.get('Email').hasError('email')
+            && registerForm.get('Email').touched">
+        Email must be email with @
+      </div>
     </div>
+
     <div class="buttons">
-      <button class="btn btn-success" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</button>
+      <button class="btn btn-success"  [disabled]="!registerForm.valid" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</button>
     </div>
+
     <div class="buttons2">
       <button class="btn btn-danger" (click)="cancel()"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>
     </div>
+
   </form>
-  
 </div>

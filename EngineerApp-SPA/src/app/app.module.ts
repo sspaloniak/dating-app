@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -27,6 +27,7 @@ import { CardReadersComponent } from './card-readers/card-readers.component';
 import { CardComponent } from './card/card.component';
 import { CardService } from './_services/card.service';
 import { ExcelService } from './_services/excel.service';
+import { UserComponent } from './user/user.component';
 
 
 export function tokenGetter() {
@@ -44,13 +45,15 @@ export function tokenGetter() {
         EventListComponent,
         HomeComponent,
         CardReadersComponent,
-        CardComponent
+        CardComponent,
+        UserComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
+        ReactiveFormsModule,
         NgbModule.forRoot(),
         BsDropdownModule.forRoot(),
         RouterModule.forRoot(appRoutes),

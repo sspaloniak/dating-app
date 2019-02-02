@@ -9,19 +9,28 @@
 					<h1><u>{{pageTitle}}</u></h1>
 				</div>
 			</div>
-			<form #cardReaderForm="ngForm" (ngSubmit)="addCardReader(cardReaderForm.value)">
-				<div class="input-group mb-3">
-					<input type="text" name="ReaderName" class="form-control" placeholder="New Card Reader..." aria-label="Recipient's username"
-					 aria-describedby="basic-addon2" #ReaderName = "ngModel" [(ngModel)]="model.readerName">
-					<select name="Localization" class="custom-select" id="inputGroupSelect01" [(ngModel)]="model.idlocalization">
-						<option selected disabled hidden>Choose...</option>
-						<option *ngFor="let localization of localizations" [value]="localization.id">{{localization.area}}</option>
-					</select>
-					<div class="input-group-append">
-						<button class="btn btn-success" type="submit"><i class="fa fa-id-card" aria-hidden="true"></i> Add Card Reader</button>
+
+			<form [formGroup]="cardReaderForm" (ngSubmit)="addCardReader()">
+				<div class="form-row">
+			
+					<div class="form-group col">
+						<input type="text" [ngClass]="{'is-invalid': cardReaderForm.get('readerName').errors && cardReaderForm.get('readerName').touched}"
+						 formControlName="readerName" class="form-control" placeholder="New Card Reader...">
+						<div class="invalid-feedback">Reader name is required</div>
 					</div>
+			
+					<div class="form-group col-md-3">
+						<select formControlName="idlocalization" class="custom-select" id="inputGroupSelect01" [ngClass]="{'is-invalid': cardReaderForm.get('idlocalization').errors && cardReaderForm.get('idlocalization').touched}">
+							<option selected="selected" disabled hidden>Choose...</option>
+							<option *ngFor="let localization of localizations" [value]="localization.id">{{localization.area}}</option>
+						</select>
+						<div class="invalid-feedback">Localization is required</div>
+					</div>
+					<button class="btn btn-success" [disabled]="!cardReaderForm.valid" type="submit"><i class="fa fa-id-card" aria-hidden="true"></i>
+						Add Card Reader</button>
 				</div>
 			</form>
+
 			<div style="margin-top:15px;" class="content-table">
 				<table class="table table-bordered table-striped">
 					<thead class="thead-dark">
@@ -55,18 +64,19 @@
 					<h1><u>{{pageTitle2}}</u></h1>
 				</div>
 			</div>
-			<form name="formLocalization" (ngSubmit)="addLocalization()" id="formLocalization" novalidate>
-				<div class="input-group mb-3">
-					<div class="form-group" ng-class="{'has-error' : formLocalization.name.$invalid && !formLocalization.name.$pristine}">
-						<input type="text" name="Area" class="form-control" placeholder="New Localization..." aria-label="Recipient's username"
-						 aria-describedby="basic-addon2" #Area="ngModel" [(ngModel)]="model.Area" required>
+
+			<form [formGroup]="localizationForm" (ngSubmit)="addLocalization()">
+				<div class="form-row">
+					<div class="form-group col">
+						<input type="text" formControlName="area" [ngClass]="{'is-invalid': localizationForm.get('area').errors && localizationForm.get('area').touched}"
+						 class="form-control" placeholder="New Localization...">
+						<div class="invalid-feedback">Localization name is required</div>
 					</div>
-					<div class="input-group-append">
-						<button class="btn btn-success" type="submit" ng-disabled="formLocalization.$invalid">
-							<i class="fa fa-map" aria-hidden="true"></i> Add Localization</button>
-					</div>
+					<button class="btn btn-success" type="submit" [disabled]="!localizationForm.valid">
+						<i class="fa fa-map" aria-hidden="true"></i> Add Localization</button>
 				</div>
 			</form>
+
 			<div style="margin-top:15px;" class="content-table">
 				<table class="table table-bordered table-striped">
 					<thead class="thead-dark">
@@ -98,15 +108,19 @@
 					<h1><u>{{pageTitle3}}</u></h1>
 				</div>
 			</div>
-			<form #departmentForm="ngForm" (ngSubmit)="addDepartment(departmentForm.value)">
-				<div class="input-group mb-3">
-					<input type="text" name="DepartmentName" class="form-control" placeholder="New Department..." aria-label="Recipient's username"
-					 aria-describedby="basic-addon2" #DepartmentName = "ngModel" [(ngModel)]="model.DepartmentName" required>
-					<div class="input-group-append">
-						<button class="btn btn-success" type="submit"><i class="fa fa-users" aria-hidden="true"></i> Add Department</button>
+
+			<form [formGroup]="departmentForm" (ngSubmit)="addDepartment()">
+				<div class="form-row">
+					<div class="form-group col">
+						<input type="text" formControlName="departmentName" [ngClass]="{'is-invalid': departmentForm.get('departmentName').errors && departmentForm.get('departmentName').touched}"
+						 class="form-control" placeholder="New Department...">
+						 <div class="invalid-feedback">Department name is required</div>
 					</div>
+					<button class="btn btn-success" type="submit" [disabled]="!departmentForm.valid"><i class="fa fa-users" aria-hidden="true"></i>
+						Add Department</button>
 				</div>
 			</form>
+
 			<div style="margin-top:15px;" class="content-table">
 				<table class="table table-bordered table-striped">
 					<thead class="thead-dark">

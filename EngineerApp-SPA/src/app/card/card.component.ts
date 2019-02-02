@@ -6,6 +6,7 @@ import { Card } from '../_models/card';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../_models/user';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-card',
@@ -17,15 +18,27 @@ export class CardComponent implements OnInit {
   users: User[];
   pageTitle = 'List of cards';
   tempInfo = 'Loading...';
-  model: any = {};
   closeResult: string;
+  cardForm: FormGroup;
 
   constructor(private cardService: CardService, private alertify: AlertifyService, private router: Router,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.loadCards();
     this.loadUsers();
+    this.createCardForm();
+  }
+
+  createCardForm() {
+    this.cardForm = this.fb.group({
+      idUser: ['', Validators.required],
+      cardnumber4: ['', Validators.required],
+      cardnumber3: ['', Validators.required],
+      cardnumber2: ['', Validators.required],
+      cardnumber1: ['', Validators.required],
+      blocked: ['true']
+    });
   }
 
   loadCards() {
@@ -54,13 +67,14 @@ export class CardComponent implements OnInit {
   }
 
   addCard() {
-    this.cardService.addCard(this.model).subscribe(() => {
+    this.cardService.addCard(this.cardForm.value).subscribe(() => {
       this.alertify.message('New card was added.');
       this.loadCards();
       this.modalService.dismissAll();
     }, error => {
       this.alertify.error(error);
     });
+    this.cardForm.reset();
   }
 
   open(content) {
