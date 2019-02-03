@@ -6,6 +6,7 @@ import { User } from 'src/app/_models/user';
 import { Department } from 'src/app/_models/department';
 import { Superior } from 'src/app/_models/superior';
 import { DictionaryService } from 'src/app/_services/dictionary.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-member-card',
@@ -16,14 +17,27 @@ export class MemberCardComponent implements OnInit {
   user: User;
   departments: Department[];
   superiors: Superior[];
+  updateUserForm: FormGroup;
 
   constructor(private userService: UserService, private dictionaryService: DictionaryService, private alertify: AlertifyService,
-    private route: ActivatedRoute, private router: Router ) { }
+    private route: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.loadUser();
     this.loadDepartments();
     this.loadSuperiors();
+    this.createUpdateUserForm();
+  }
+
+  createUpdateUserForm() {
+    this.updateUserForm = this.fb.group({
+      name: [''],
+      surname: [''],
+      typePermission: [''],
+      idSuperior: [''],
+      idDepartment: [''],
+      email: ['']
+    });
   }
 
   loadUser() {
@@ -54,4 +68,12 @@ export class MemberCardComponent implements OnInit {
     this.router.navigateByUrl('/members');
   }
 
+  update() {
+    this.userService.updateUser(this.updateUserForm.value, this.route.snapshot.params['id']).subscribe(() => {
+      this.alertify.message('User has been updated.');
+      this.router.navigateByUrl('/members');
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
 }

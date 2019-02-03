@@ -24,4 +24,9 @@ constructor(
   deleteUser(id): Observable<boolean> {
     return this.http.delete<boolean>(this.baseUrl + 'users/delete/' + id);
   }
+
+  updateUser(model: User, id: number) {
+    model.id = id;
+    return this.http.post(this.baseUrl + 'users/update', model);
+  }
 }

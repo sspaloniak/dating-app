@@ -7,6 +7,7 @@ import { RegisterUser } from '../_models/registerUser';
 import { User } from '../_models/user';
 import { UserService } from './user.service';
 import { AlertifyService } from './alertify.service';
+import { Password } from '../_models/password';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,11 @@ export class AuthService {
 
   register(model: RegisterUser) {
     return this.http.post(this.baseUrl + 'register', model);
+  }
+
+  changePassword(model: Password) {
+    model.idUser = this.decodedToken.nameid;
+    return this.http.post(this.baseUrl + 'changepassword', model);
   }
 
   loggedIn() {

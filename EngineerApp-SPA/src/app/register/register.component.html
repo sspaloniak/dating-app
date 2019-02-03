@@ -64,8 +64,8 @@
     <div class="form-group">
       <label>Superior</label>
       <select formControlName="IdSuperior" class="custom-select mr-sm-2">
-        <option selected disabled hidden>Choose...</option>
         <option *ngFor="let superior of superiors" [value]="superior.id">{{superior.superiorName}}</option>
+        <option selected="selected" disabled hidden>Choose...</option>
       </select>
     </div>
 

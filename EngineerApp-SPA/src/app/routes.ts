@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { CardReadersComponent } from './card-readers/card-readers.component';
 import { CardComponent } from './card/card.component';
 import { UserComponent } from './user/user.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -17,7 +18,7 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard],
         children: [
-            { path: 'home', component: HomeComponent },
+            { path: 'home', component: HomePageComponent },
             { path: 'members', component: MemberListComponent},
             { path: 'register', component: RegisterComponent},
             { path: 'members/:id', component: MemberCardComponent},

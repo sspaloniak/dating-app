@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EngineerApp.API.Dtos;
 using EngineerApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,21 @@ namespace EngineerApp.API.Data
         public void Delete<T>(T entity) where T : class
         {
             _context.Remove(entity);
+        }
+
+        public async Task<bool> UpdateUser(UserForDetailedDTO userToUpdate)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userToUpdate.Id);
+
+            user.Name = userToUpdate.Name;
+            user.Surname = userToUpdate.Name;
+            user.TypePermission = userToUpdate.TypePermission;
+            user.IdSuperior = userToUpdate.IdSuperior;
+            user.IdDepartment = userToUpdate.IdDepartment;
+            user.Email = userToUpdate.Email;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public Task<User> GetUser(int id)

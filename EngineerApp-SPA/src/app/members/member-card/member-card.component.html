@@ -1,17 +1,17 @@
 <app-home></app-home>
 <div class="container mt-4">
-    <form>
+    <form [formGroup]="updateUserForm" (ngSubmit)="update()">
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" id="name" value="{{user?.name}}">
+            <input type="text" formControlName="name" class="form-control" id="name" value="{{user?.name}}">
         </div>
         <div class="form-group">
             <label>Surname</label>
-            <input type="text" class="form-control" id="surname" value="{{user?.surname}}">
+            <input type="text" formControlName="surname" class="form-control" id="surname" value="{{user?.surname}}">
         </div>
         <div class="form-group">
             <label>Type of Permission</label>
-            <select class="custom-select mr-sm-2" id="typeOfPermission">
+            <select formControlName="typePermission" class="custom-select mr-sm-2" id="typeOfPermission">
                 <option value="0" selected="{{ user?.typePermission == 0 ? 'selected' : '' }}">Menedżer</option>
                 <option value="1" selected="{{ user?.typePermission == 1 ? 'selected' : '' }}">Użytkownik</option>
 
@@ -19,24 +19,24 @@
         </div>
         <div class="form-group">
             <label>Superior</label>
-            <select class="custom-select mr-sm-2" id="superior">
-                <option selected disabled hidden>{{user?.superior}}</option>
-                <option *ngFor="let superior of superiors">{{superior.superiorName}}</option>
+            <select formControlName="idSuperior" class="custom-select mr-sm-2">
+                <option *ngFor="let superior of superiors" [value]="superior.id">{{superior.superiorName}}</option>
+                <option selected="{{user.superior}}" disabled hidden value="{{user.idSuperior}}">{{user?.superior}}</option>
             </select>
         </div>
         <div class="form-group">
             <label>Department</label>
-            <select class="custom-select mr-sm-2"id="department">
-                <option selected disabled hidden>{{user?.department}}</option>
-                <option *ngFor="let department of departments">{{department.departmentName}}</option>
+            <select formControlName="idDepartment" class="custom-select mr-sm-2">
+                <option *ngFor="let department of departments" [value]="department.id">{{department.departmentName}}</option>
+                <option selected="{{user.department}}" disabled hidden value="{{user.idDepartment}}">{{user?.department}}</option>
             </select>
         </div>
         <div class="form-group">
             <label>Email</label>
-            <input type="text" class="form-control" id="email" value="{{user?.email}}">
+            <input type="text" formControlName="email" class="form-control" id="email" value="{{user?.email}}">
         </div>
         <div class="buttons">
-            <button class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+            <button class="btn btn-success" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
         </div>
         <div class="buttons2">
             <button class="btn btn-danger" (click)="cancel()"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>

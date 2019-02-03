@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EngineerApp.API.Dtos;
 using EngineerApp.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,6 +54,20 @@ namespace EngineerApp.API.Data
             await _context.SaveChangesAsync();
 
             return user;
+        }
+
+        public async Task<bool> ChangePassword(PasswordDto password)
+        {
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(password.Password, out passwordHash, out passwordSalt);
+
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == password.IdUser);
+
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EngineerApp.API.Dtos;
 using EngineerApp.API.Models;
 
 namespace EngineerApp.API.Data
@@ -12,5 +13,6 @@ namespace EngineerApp.API.Data
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
          Task<Department> GetUserDepartment(int id);
+         Task<bool> UpdateUser(UserForDetailedDTO userToUpdate);
     }
 }

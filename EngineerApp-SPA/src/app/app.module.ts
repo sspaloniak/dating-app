@@ -28,6 +28,7 @@ import { CardComponent } from './card/card.component';
 import { CardService } from './_services/card.service';
 import { ExcelService } from './_services/excel.service';
 import { UserComponent } from './user/user.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 export function tokenGetter() {
@@ -46,7 +47,8 @@ export function tokenGetter() {
         HomeComponent,
         CardReadersComponent,
         CardComponent,
-        UserComponent
+        UserComponent,
+        HomePageComponent
     ],
     imports: [
         BrowserModule,

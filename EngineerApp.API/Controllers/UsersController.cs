@@ -115,5 +115,13 @@ namespace EngineerApp.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateUser(UserForDetailedDTO userToUpdate)
+        {
+            var result = await _repo.UpdateUser(userToUpdate);
+
+            return Ok(result);
+        }
     }
 }

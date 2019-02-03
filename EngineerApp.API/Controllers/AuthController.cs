@@ -24,6 +24,17 @@ namespace EngineerApp.API.Controllers
             _repo = repo;
         }
 
+        [HttpPost("changepassword")]
+        public async Task<IActionResult> ChangePassword(PasswordDto passwordToChange)
+        {
+            if (passwordToChange.IdUser != 0)
+            {
+                var result = await _repo.ChangePassword(passwordToChange);
+                return StatusCode(201);
+            }
+            return BadRequest("User Id is required.");
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {

@@ -18,7 +18,6 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 export class HomeComponent implements OnInit {
   model: any = {};
   users: User[];
-  user: User;
   closeResult: string;
   emailForm: FormGroup;
 

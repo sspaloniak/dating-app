@@ -88,8 +88,6 @@
 							+ card.cardNumber4}}</td>
 						<td class="col-md-3 col-sm-3 col-xs-3">{{card.username}}</td>
 						<td class="col-md-3 col-sm-3 col-xs-3">{{card.blocked == false ? "Nie" : "Tak"}}</td>
-						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-success" [routerLink]="['/members/', card.id]">
-							<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update</button></td>
 						<td class="col-md-1 col-sm-1 col-xs-1"><button class="btn btn-danger" (click)="deleteCard(card.id)">
 							<i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button></td>
 					</tr>
