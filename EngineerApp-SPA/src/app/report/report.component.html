@@ -1,0 +1,32 @@
+<app-home></app-home>
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col" style="display: block">
+      <h2>Budget</h2><br>
+      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+        [chartType]="barChartType"></canvas>
+    </div>
+    <div class="col" style="display: block">
+      <h2>Employees in departments</h2><br>
+      <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [options]="barChartOptions" [legend]="doughnutChartLegend"
+        [chartType]="doughnutChartType"></canvas>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="row">
+      <div class="col" style="display: block">
+        <h2>Presence - last month</h2><br>
+        <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels2" [options]="barChartOptions" [legend]="barChartLegend"
+          [chartType]="barChartType"></canvas>
+      </div>
+      <div class="col" style="display: block">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+          [chartType]="barChartType"></canvas>
+      </div>
+    </div>
+</div>

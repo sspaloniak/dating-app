@@ -10,6 +10,7 @@ import { CardReadersComponent } from './card-readers/card-readers.component';
 import { CardComponent } from './card/card.component';
 import { UserComponent } from './user/user.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ReportComponent } from './report/report.component';
 
 export const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -25,7 +26,8 @@ export const appRoutes: Routes = [
             { path: 'events', component: EventListComponent },
             { path: 'cardreaders', component: CardReadersComponent},
             { path: 'cards', component: CardComponent},
-            { path: 'user', component: UserComponent}
+            { path: 'user', component: UserComponent},
+            { path: 'reports', component: ReportComponent},
         ]
     },
     { path: '**', redirectTo: 'login', pathMatch: 'full'}

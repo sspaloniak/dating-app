@@ -2,38 +2,49 @@
 <div class="content">
   <div class="row">
     <div class="jumbotron col">
-      <h1 class="display-3">Hello, {{user?.name| titlecase}}!</h1>
-      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-        featured content or information.</p>
-      <hr class="my-4">
-      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+      <h1 class="display-3">Witaj, {{user?.name| titlecase}}!</h1>
+      <br>
+      <br>
+
+      <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0"
+          aria-valuemax="100"></div>
+      </div>
+      <br>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="25" aria-valuemin="0"
+          aria-valuemax="100"></div>
+      </div>
+      <br>
+      <div class="progress">
+        <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0"
+          aria-valuemax="100"></div>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="card text-white bg-dark col" style="max-width: 20rem;">
-      <div class="card-header">Header</div>
+      <div class="card-header">Wydarzenia</div>
       <div class="card-body">
-        <h4 class="card-title">Dark card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
+        <h4 class="card-title">Spotkanie firmowe</h4>
+        <p class="card-text">Zarząd firmy serdecznie zaprasza wszystkich pracowników na imprezę integracyjną 12 marca
+          2019.</p>
       </div>
     </div>
 
     <div class="card bg-light col" style="max-width: 20rem;">
-      <div class="card-header">Header</div>
+      <div class="card-header">Nagrody</div>
       <div class="card-body">
-        <h4 class="card-title">Light card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
+        <h4 class="card-title">"Stefan Pastuch"</h4>
+        <p class="card-text">Gratulacje w kategorii "Najlepszy pracownik miesiąca".</p>
       </div>
     </div>
 
     <div class="card text-white bg-dark col" style="max-width: 20rem;">
-      <div class="card-header">Header</div>
+      <div class="card-header">Informacje</div>
       <div class="card-body">
-        <h4 class="card-title">Dark card title</h4>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
+        <h4 class="card-title">Dzień wolny</h4>
+        <p class="card-text">Informujemy, że dnia 20 lutego 2019 ustanawia się dniem wolnym od pracy.</p>
       </div>
     </div>
   </div>

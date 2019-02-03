@@ -7,6 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -29,6 +30,7 @@ import { CardService } from './_services/card.service';
 import { ExcelService } from './_services/excel.service';
 import { UserComponent } from './user/user.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ReportComponent } from './report/report.component';
 
 
 export function tokenGetter() {
@@ -48,10 +50,12 @@ export function tokenGetter() {
         CardReadersComponent,
         CardComponent,
         UserComponent,
-        HomePageComponent
+        HomePageComponent,
+        ReportComponent
     ],
     imports: [
         BrowserModule,
+        ChartsModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
