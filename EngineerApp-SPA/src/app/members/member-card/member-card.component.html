@@ -21,14 +21,14 @@
             <label>Superior</label>
             <select formControlName="idSuperior" class="custom-select mr-sm-2">
                 <option *ngFor="let superior of superiors" [value]="superior.id">{{superior.superiorName}}</option>
-                <option selected="{{user.superior}}" disabled hidden value="{{user.idSuperior}}">{{user?.superior}}</option>
+                <option selected="{{user?.superior}}" disabled hidden>{{user?.superior}}</option>
             </select>
         </div>
         <div class="form-group">
             <label>Department</label>
             <select formControlName="idDepartment" class="custom-select mr-sm-2">
                 <option *ngFor="let department of departments" [value]="department.id">{{department.departmentName}}</option>
-                <option selected="{{user.department}}" disabled hidden value="{{user.idDepartment}}">{{user?.department}}</option>
+                <option selected="{{user?.department}}" disabled hidden>{{user?.department}}</option>
             </select>
         </div>
         <div class="form-group">

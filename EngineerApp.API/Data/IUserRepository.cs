@@ -13,6 +13,6 @@ namespace EngineerApp.API.Data
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
          Task<Department> GetUserDepartment(int id);
-         Task<bool> UpdateUser(UserForDetailedDTO userToUpdate);
+         Task<bool> UpdateUser(UserToUpdate userToUpdate);
     }
 }

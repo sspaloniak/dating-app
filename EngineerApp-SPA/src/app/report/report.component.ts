@@ -26,8 +26,13 @@ export class ReportComponent implements OnInit {
     {data: [100, 95, 78, 85, 65, 73], label: 'Przychody'}
   ];
 
+  public pieChartLabels = ['Poznań', 'Warszawa', 'Kraków'];
+  public pieChartData = [2, 1, 1];
+  public pieChartType = 'pie';
+  public pieChartLegend = true;
+
   public doughnutChartLabels = ['Programiści', 'Zarząd', 'Handlowcy', 'Wdrożeniowcy'];
-  public doughnutChartData = [2, 1, 1, 2];
+  public doughnutChartData = [2, 1, 2, 1];
   public doughnutChartType = 'doughnut';
   public doughnutChartLegend = true;
 

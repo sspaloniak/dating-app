@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,16 +25,18 @@ namespace EngineerApp.API.Data
             _context.Remove(entity);
         }
 
-        public async Task<bool> UpdateUser(UserForDetailedDTO userToUpdate)
+        public async Task<bool> UpdateUser(UserToUpdate userToUpdate)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userToUpdate.Id);
 
             user.Name = userToUpdate.Name;
-            user.Surname = userToUpdate.Name;
+            user.Surname = userToUpdate.Surname;
             user.TypePermission = userToUpdate.TypePermission;
             user.IdSuperior = userToUpdate.IdSuperior;
             user.IdDepartment = userToUpdate.IdDepartment;
             user.Email = userToUpdate.Email;
+            user.ModifiedBy = 1;
+            user.ModifiedDate = DateTime.Now;
 
             await _context.SaveChangesAsync();
             return true;

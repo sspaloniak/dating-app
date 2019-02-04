@@ -117,7 +117,7 @@ namespace EngineerApp.API.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateUser(UserForDetailedDTO userToUpdate)
+        public async Task<IActionResult> UpdateUser(UserToUpdate userToUpdate)
         {
             var result = await _repo.UpdateUser(userToUpdate);
 

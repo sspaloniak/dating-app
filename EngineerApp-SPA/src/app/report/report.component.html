@@ -20,13 +20,14 @@
   <br>
   <div class="row">
       <div class="col" style="display: block">
-        <h2>Presence - last month</h2><br>
+        <h2>Presence - last month [%]</h2><br>
         <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels2" [options]="barChartOptions" [legend]="barChartLegend"
           [chartType]="barChartType"></canvas>
       </div>
       <div class="col" style="display: block">
-        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-          [chartType]="barChartType"></canvas>
+        <h2>Card readers in localizations</h2><br>
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [options]="barChartOptions" [legend]="pieChartLegend"
+          [chartType]="pieChartType"></canvas>
       </div>
     </div>
 </div>
