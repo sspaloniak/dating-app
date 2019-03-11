@@ -6,15 +6,15 @@
 				<h1><u>{{pageTitle}}</u></h1>
 			</div>
 		</div>
-		<div style="margin-top:15px;" class="content-table">
+		<div style="margin-top:15px;" class="form-group content-table">
 			<form #cardReaderForm="ngForm" (ngSubmit)="filter()">
 				<div class="input-group mb-3">
 					<label for="example-date-input" class="col-form-label">Date from </label>
-					<input class="form-control" type="date" value="2019-02-04" id="example-date-input">
+					<input class="form-control" type="date" value="2019-02-04" id="example-date-input" [(ngModel)]="dateFrom">
 					<br>
 					<br>
 					<label for="example-date-input" class="col-form-label">Date to </label>
-					<input class="form-control" type="date" value="2018-02-04" id="example-date-input">
+					<input class="form-control" type="date" value="2018-02-04" id="example-date-input" [(ngModel)]="dateTo">
 					<button class="filter btn btn-success" type="submit"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
 				</div>
 			</form>
@@ -34,7 +34,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let event of events let i = index" [attr.data-index]="i">
+					<tr *ngFor="let event of eventsToPage let i = index" [attr.data-index]="i">
 						<td>{{i+1}}</td>
 						<td class="col-md-3 col-sm-3 col-xs-3">{{event.date}}</td>
 						<td class="col-md-3 col-sm-3 col-xs-3">{{event.incidentType}}</td>

@@ -15,11 +15,12 @@ import { ExcelService } from '../_services/excel.service';
 })
 export class EventListComponent implements OnInit {
   events: Event[];
+  eventsToPage: Event[];
   user: User;
+  dateFrom: Date;
+  dateTo: Date;
   pageTitle = 'List of events';
   tempInfo = 'Loading...';
-  startDate: Date;
-  finishDate: Date;
 
   constructor(private authService: AuthService, private eventService: EventService, private alertify: AlertifyService,
     private userService: UserService, private excelService: ExcelService) { }
@@ -32,6 +33,7 @@ export class EventListComponent implements OnInit {
   loadEvents() {
     this.eventService.getEvents(this.authService.decodedToken.nameid).subscribe((events: Event[]) => {
       this.events = events;
+      this.eventsToPage = events;
     }, error => {
       this.alertify.error(error);
     });
